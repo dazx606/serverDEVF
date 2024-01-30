@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { getUsers, createUser } = require('../controladores/controlador.js')
+const { getUsers, createUser, deleteUser, editUser, getUser } = require('../controladores/controlador.js')
 
 const router = express.Router();
 
@@ -15,11 +15,11 @@ router.get('/users', function (req, res) {
     res.json({ users });
 });
 
-
 router.post('/users', function (req, res) {
     // Obtener los datos del cuerpo de la solicitud
 
     const { name, age, id } = req.body;
+
 
     // Validar si se proporcionaron name, age y id en la solicitud
     if (!name || !age || !id) {
@@ -32,6 +32,38 @@ router.post('/users', function (req, res) {
     // Enviar una respuesta exitosa
     res.status(201).json({ message: 'Usuario agregado con éxito' });
 });
+
+router.put('/users/:id', function (req, res) {
+
+    const { id } = req.params;
+    const { name, age } = req.body;
+
+    let usuarioEditado = editUser(parseInt(id), name, age);
+
+    res.json({ users: usuarioEditado });
+});
+
+router.delete('/users/:id', function (req, res) {
+
+    const { id } = req.params;
+
+    let usuarioEliminado = deleteUser(parseInt(id))
+
+    res.send({ mensaje: usuarioEliminado ? 'usuario eliminado con éxito' : 'usuario no encontrado' })
+
+});
+
+router.get('/users/:id', function (req, res) {
+    const { id } = req.params;
+
+    const user = getUser(parseInt(id))
+    // enviar una respuesta
+    res.json({ user });
+});
+
+
+
+
 
 
 module.exports = router;
