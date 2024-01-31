@@ -8,6 +8,7 @@ app.use(morgan('combined'))
 
 // Usa las rutas definidas en el archivo routes.js
 app.use(express.json()); 
+
 app.use('/', rutas);
 
 app.listen(3000, () => {
