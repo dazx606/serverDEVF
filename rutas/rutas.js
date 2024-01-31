@@ -9,11 +9,17 @@ router.get('/', function (req, res) {
 });
 
 router.get('/users/:id', function (req, res) {
-    // utiliza el controlador para traer los datos
-    //const users = getUsers()
+    const { id } = req.params;
+
+    const user = getUser(parseInt(id))
     // enviar una respuesta
-    const {id} = req.params
-    res.send({ id });
+    if(user.length === 0){
+        res.send({mensaje:'usuario no encontrado'})
+        return
+    } else {
+        res.json( user[0] );
+        return
+    }
 });
 
 
@@ -62,13 +68,7 @@ router.delete('/users/:id', function (req, res) {
 
 });
 
-router.get('/users/:id', function (req, res) {
-    const { id } = req.params;
 
-    const user = getUser(parseInt(id))
-    // enviar una respuesta
-    res.json({ user });
-});
 
 
 

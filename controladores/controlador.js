@@ -23,7 +23,7 @@ const editUser = (id, name, age) => {
 }
 
 const getUser = (id) => {
-    let user; //buscar el usuario
+    let user = users.filter(usuario => usuario.id === id);
     return user
 
 }
