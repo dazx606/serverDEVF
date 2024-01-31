@@ -8,12 +8,22 @@ router.get('/', function (req, res) {
     res.send('hola, yo soy la respuesta del servidor editado x2');
 });
 
+router.get('/users/:id', function (req, res) {
+    // utiliza el controlador para traer los datos
+    //const users = getUsers()
+    // enviar una respuesta
+    const {id} = req.params
+    res.send({ id });
+});
+
+
 router.get('/users', function (req, res) {
     // utiliza el controlador para traer los datos
     const users = getUsers()
     // enviar una respuesta
     res.json({ users });
 });
+
 
 
 router.post('/users', function (req, res) {
